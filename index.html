@@ -10,7 +10,7 @@
   <body>
     <div class="container">
       <div class="patients-data">
-        <form id="form">
+        <form id="patients-form">
           <div class="firstname-control">
             <label for="firstName">First Name:</label>
             <input type="text" name="firstName" id="firstName" required />
@@ -31,7 +31,7 @@
             </select>
           </div>
           <div class="checkbox">
-            <input type="checkbox" checked />
+            <input type="checkbox" id="checkbox" checked />
             <label for="visit"
               >Recently came in to Nigeria within the last 14 days?</label
             >
@@ -54,7 +54,7 @@
             <th></th>
             <th></th>
           </thead>
-          <tbody class="patient-detais">
+          <tbody id="patients-details">
             <tr>
               <td>Ada Lovelace</td>
               <td>a@b.com</td>
