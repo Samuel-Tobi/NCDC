@@ -25,10 +25,10 @@ const addPatientsData = (e) => {
 patientData.addEventListener("submit", addPatientsData);
 
 // Edit patient data on table
-const editPatientData = (e) => {
-  if (e.target.classList.contains("edit-btn")) {
+const editPatientData = (data) => {
+  if (data.target.classList.contains("edit-btn")) {
     // get patient data
-    patient = e.target.parentElement.parentElement;
+    patient = data.target.parentElement.parentElement;
 
     firstName.value = patient.children[0].innerText.split(" ")[0];
     lastName.value = patient.children[0].innerText.split(" ")[1];
@@ -54,13 +54,13 @@ const editPatientData = (e) => {
       }
 
       patient.innerHTML = `<tr>
-    <td>${firstName.value} ${lastName.value}</td>
-    <td>${email.value}</td>
-    <td>${gender.value}</td>
-    <td><a href='#'>${visit.checked ? "Yes" : "No"}</a></td>
-    <td><button class="edit-btn">Edit</button></td>
-    <td><button class="delete-btn">Delete</button></td>
-    </tr>`;
+      <td>${firstName.value} ${lastName.value}</td>
+      <td>${email.value}</td>
+      <td>${gender.value}</td>
+      <td><a href='#'>${visit.checked ? "Yes" : "No"}</a></td>
+      <td><button class="edit-btn">Edit</button></td>
+      <td><button class="delete-btn">Delete</button></td>
+      </tr>`;
 
       patientData.reset();
       document.querySelector("#submit").style.display = "inline-block";
@@ -71,10 +71,9 @@ const editPatientData = (e) => {
 patientsDetails.addEventListener("click", editPatientData);
 
 //Delete patient data from table
-const deletePatientData = (e) => {
-  e.preventDefault();
-  if (e.target.classList.contains("delete-btn")) {
-    e.target.parentElement.parentElement.remove();
+const deletePatientData = (data) => {
+  if (data.target.classList.contains("delete-btn")) {
+    data.target.parentElement.parentElement.remove();
   }
 };
 patientsDetails.addEventListener("click", deletePatientData);
