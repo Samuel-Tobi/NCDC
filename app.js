@@ -3,8 +3,10 @@ const firstName = patientData.querySelector("#firstName");
 const lastName = patientData.querySelector("#lastName");
 const email = patientData.querySelector("#email");
 const gender = patientData.querySelector("#gender");
-const visit = patientData.querySelector("#checkbox");
-// const submit = patientData.querySelector("#submit");
+
+// const editBtn = document.querySelector("#edit-btn");
+// const deleteBtn = document.getElementsByClassName("delete-btn");
+
 const update = patientData.querySelector("#update");
 
 const patientsDetails = document.querySelector("#patients-details");
@@ -20,6 +22,20 @@ const addPatientsData = (e) => {
   <td><button class="edit-btn">Edit</button></td>
   <td><button class="delete-btn">Delete</button></td>
   </tr>`;
+
+  // Display Success alert
+  const successAlert = document.querySelector(".success-alert");
+  successAlert.style.display = "inline-block";
+
+  // Set Success alert display to none
+  function clearSuccessAlert() {
+    const successAlert = document.querySelector(".success-alert");
+    successAlert.style.display = "none";
+  }
+  //Timeout
+  setTimeout(() => {
+    clearSuccessAlert();
+  }, 01000);
   patientData.reset();
 };
 patientData.addEventListener("submit", addPatientsData);
@@ -44,7 +60,6 @@ const editPatientData = (data) => {
     update.style.display = "inline-block";
     update.addEventListener("click", (e) => {
       e.preventDefault();
-
       if (
         firstName.value.trim() === "" ||
         lastName.value.trim() === "" ||
@@ -52,7 +67,6 @@ const editPatientData = (data) => {
       ) {
         return;
       }
-
       patient.innerHTML = `<tr>
       <td>${firstName.value} ${lastName.value}</td>
       <td>${email.value}</td>
@@ -61,10 +75,24 @@ const editPatientData = (data) => {
       <td><button class="edit-btn">Edit</button></td>
       <td><button class="delete-btn">Delete</button></td>
       </tr>`;
-
       patientData.reset();
       document.querySelector("#submit").style.display = "inline-block";
       document.querySelector("#update").style.display = "none";
+
+      // Display Update Alert
+      const updateAlert = document.querySelector(".update-alert");
+      updateAlert.style.display = "inline-block";
+
+      // Set Update alert display to none
+      function recordUpdated() {
+        const updateAlert = document.querySelector(".update-alert");
+        updateAlert.style.display = "none";
+      }
+
+      // Set Timeout
+      setTimeout(() => {
+        recordUpdated();
+      }, 01000);
     });
   }
 };
@@ -75,5 +103,22 @@ const deletePatientData = (data) => {
   if (data.target.classList.contains("delete-btn")) {
     data.target.parentElement.parentElement.remove();
   }
+
+  // // Display Delete Alert
+  // const deleteAlert = document.querySelector(".delete-alert");
+  // deleteAlert.style.display = "inline-block";
+
+  // // Set delete alert to none
+  // function recordDeleted() {
+  //   const deleteAlert = document.querySelector(".delete-alert");
+  //   deleteAlert.style.display = "none";
+  // }
+
+  // //Set Timeout
+  // setTimeout(() => {
+  //   recordDeleted();
+  // }, 1000);
+  // patientData.reset();
 };
 patientsDetails.addEventListener("click", deletePatientData);
+// deleteBtn.addEventListener("click", deletePatientData);
