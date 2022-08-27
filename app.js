@@ -1,15 +1,9 @@
-const patientData = document.forms["patients-form"];
-const firstName = patientData.querySelector("#firstName");
-const lastName = patientData.querySelector("#lastName");
-const email = patientData.querySelector("#email");
-const gender = patientData.querySelector("#gender");
-
-// const editBtn = document.querySelector("#edit-btn");
-// const deleteBtn = document.getElementsByClassName("delete-btn");
-
-const update = patientData.querySelector("#update");
-
-const patientsDetails = document.querySelector("#patients-details");
+const form = document.querySelector("#patients-form");
+const firstName = document.querySelector("#firstName");
+const lastName = document.querySelector("#lastName");
+const email = document.querySelector("#email");
+const gender = document.querySelector("#gender");
+const visit = document.querySelector("#visit");
 
 // Add Patient Data to Table
 const addPatientsData = (e) => {
@@ -25,38 +19,44 @@ const addPatientsData = (e) => {
 
   // Display Success alert
   const successAlert = document.querySelector(".success-alert");
-  successAlert.style.display = "inline-block";
+  successAlert.style.display = "block";
 
+  console.log("working");
   // Set Success alert display to none
   function clearSuccessAlert() {
     const successAlert = document.querySelector(".success-alert");
     successAlert.style.display = "none";
   }
+
   //Timeout
   setTimeout(() => {
     clearSuccessAlert();
   }, 01000);
-  patientData.reset();
+  form.reset();
 };
-patientData.addEventListener("submit", addPatientsData);
+form.addEventListener("submit", addPatientsData);
+
+const editPatient = document.querySelector("#patients-details");
+const update = document.querySelector("#update");
 
 // Edit patient data on table
 const editPatientData = (data) => {
-  if (data.target.classList.contains("edit-btn")) {
+  if (data.className === "edit-btn") {
     // get patient data
-    patient = data.target.parentElement.parentElement;
+    patient = data.parentElement.parentElement;
 
     firstName.value = patient.children[0].innerText.split(" ")[0];
     lastName.value = patient.children[0].innerText.split(" ")[1];
-    email.value = patient.children[1].innerText;
+    email.value = patient.children[1].innerText.split(" ");
     gender.value = patient.children[2].innerText.split(" ");
-    patient.children[3].innerText === "Yes"
-      ? (visit.checked = true)
-      : (visit.checked = false);
+    visit.value =
+      patient.children[3].innerText === "Yes"
+        ? (visit.checked = true)
+        : (visit.checked = false);
 
     // Update Button
     document.querySelector("#submit").style.display = "none";
-    const update = patientData.querySelector("#update");
+    const update = document.querySelector("#update");
     update.style.display = "inline-block";
     update.addEventListener("click", (e) => {
       e.preventDefault();
@@ -75,13 +75,16 @@ const editPatientData = (data) => {
       <td><button class="edit-btn">Edit</button></td>
       <td><button class="delete-btn">Delete</button></td>
       </tr>`;
-      patientData.reset();
+      form.reset();
       document.querySelector("#submit").style.display = "inline-block";
       document.querySelector("#update").style.display = "none";
 
+      // const delAlert = document.querySelector(".delete-alert");
+      // delAlert[0].style.display = "none";
+
       // Display Update Alert
       const updateAlert = document.querySelector(".update-alert");
-      updateAlert.style.display = "inline-block";
+      updateAlert.style.display = "block";
 
       // Set Update alert display to none
       function recordUpdated() {
@@ -96,29 +99,39 @@ const editPatientData = (data) => {
     });
   }
 };
-patientsDetails.addEventListener("click", editPatientData);
+editPatient.addEventListener("click", editPatientData);
+
+const deletePatient = document.querySelector(".delete-btn");
+
+// for (let btn of deletePatient) {
+//   console.log(".delete-btn");
+// }
+
+// for (let btn of deletePatient) {
+//   btn.document.querySelectorAll(".delete-btn") = deletePatient;
+// }
 
 //Delete patient data from table
 const deletePatientData = (data) => {
-  if (data.target.classList.contains("delete-btn")) {
+  if (data.target.className === "delete-btn") {
     data.target.parentElement.parentElement.remove();
+
+    console.log("working");
   }
 
-  // // Display Delete Alert
-  // const deleteAlert = document.querySelector(".delete-alert");
-  // deleteAlert.style.display = "inline-block";
+  // Display Delete Alert
+  const deleteAlert = document.querySelector(".delete-alert");
+  deleteAlert.style.display = "block";
 
-  // // Set delete alert to none
-  // function recordDeleted() {
-  //   const deleteAlert = document.querySelector(".delete-alert");
-  //   deleteAlert.style.display = "none";
-  // }
+  // Set delete alert to none
+  function recordDeleted() {
+    document.querySelector(".delete-alert").style.display = "none";
+  }
 
-  // //Set Timeout
-  // setTimeout(() => {
-  //   recordDeleted();
-  // }, 1000);
-  // patientData.reset();
+  //Set Timeout
+  setTimeout(() => {
+    recordDeleted();
+  }, 1000);
+  // form.reset();
 };
-patientsDetails.addEventListener("click", deletePatientData);
-// deleteBtn.addEventListener("click", deletePatientData);
+deletePatient.addEventListener("click", deletePatientData);
