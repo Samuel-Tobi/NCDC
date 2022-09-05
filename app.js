@@ -28,7 +28,9 @@ function addPatientsData(e) {
   document.getElementById("patients-table").innerHTML += `
   <tbody>
     <tr>
-    <td>${firstName.value} ${lastName.value.toUpperCase()}</td>
+    <td>${
+      lastName.value.charAt(0).toUpperCase() + lastName.value.slice(1)
+    } ${firstName.value.toUpperCase()}</td>
     <td>${email.value}</td>
     <td>${gender.value}</td>
     <td>${visit.checked ? "Yes" : "No"}</td>
@@ -65,8 +67,8 @@ function editPatientData(data) {
     // get patient data
     patient = data.target.parentElement.parentElement;
 
-    firstName.value = patient.children[0].innerText.split(" ")[0];
-    lastName.value = patient.children[0].innerText.split(" ")[1];
+    firstName.value = patient.children[0].innerText.split(" ")[1];
+    lastName.value = patient.children[0].innerText.split(" ")[0];
     email.value = patient.children[1].innerText;
     gender.value = patient.children[2].innerText.split(" ");
     patient.children[3].innerText === "Yes"
@@ -92,7 +94,9 @@ function editPatientData(data) {
       return;
     }
     patient.innerHTML = `<tr>
-      <td>${firstName.value} ${lastName.value.toUpperCase()}</td>
+      <td>${
+        lastName.value.charAt(0).toUpperCase() + lastName.value.slice(1)
+      } ${firstName.value.toUpperCase()}</td>
       <td>${email.value}</td>
       <td>${gender.value}</td>
       <td>${visit.checked ? "Yes" : "No"}</td>
