@@ -115,6 +115,10 @@ table {
   border-collapse: collapse;
 }
 
+#patients-table {
+  visibility: hidden;
+}
+
 td,
 th {
   border: 1px solid #dddddd;

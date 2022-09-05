@@ -25,14 +25,19 @@ const setupDeleteButtons = () => {
 // Add Patient Data to Table
 function addPatientsData(e) {
   e.preventDefault();
-  document.getElementById("patients-details").innerHTML += `<tr>
-  <td>${firstName.value} ${lastName.value}</td>
-  <td>${email.value}</td>
-  <td>${gender.value}</td>
-  <td><a href='#'>${visit.checked ? "Yes" : "No"}</a></td>
-  <td><button class="edit-btn">Edit</button></td>
-  <td><button class="delete-btn">Delete</button></td>
-  </tr>`;
+  document.getElementById("patients-table").innerHTML += `
+  <tbody>
+    <tr>
+    <td>${firstName.value} ${lastName.value.toUpperCase()}</td>
+    <td>${email.value}</td>
+    <td>${gender.value}</td>
+    <td>${visit.checked ? "Yes" : "No"}</td>
+    <td><button class="edit-btn">Edit</button></td>
+    <td><button class="delete-btn">Delete</button></td>
+    </tr>
+  </tbody>`;
+
+  document.getElementById("patients-table").style.visibility = "visible";
 
   // Display Success alert
   const successAlert = document.querySelector(".success-alert");
@@ -68,7 +73,6 @@ function editPatientData(data) {
       ? (visit.checked = true)
       : (visit.checked = false);
   }
-  console.log("edit");
 
   // show update button, hide submit button
   document.querySelector("#update").style.display = "block";
@@ -88,10 +92,10 @@ function editPatientData(data) {
       return;
     }
     patient.innerHTML = `<tr>
-      <td>${firstName.value} ${lastName.value}</td>
+      <td>${firstName.value} ${lastName.value.toUpperCase()}</td>
       <td>${email.value}</td>
       <td>${gender.value}</td>
-      <td><a href='#'>${visit.checked ? "Yes" : "No"}</a></td>
+      <td>${visit.checked ? "Yes" : "No"}</td>
       <td><button class="edit-btn">Edit</button></td>
       <td><button class="delete-btn">Delete</button></td>
       </tr>`;
@@ -123,8 +127,15 @@ setupEditButtons();
 //Delete button
 const deletePatientData = (data) => {
   if (data.target.className === "delete-btn") {
-    data.target.parentElement.parentElement.remove();
+    data.target.parentElement.parentElement.parentElement.remove();
   }
+
+  // if (data.target.className === "delete-btn" && data.target < 2) {
+  //   data.target.parentElement.parentElement.parentElement.parentElement.remove();
+  // } else {
+  //   // data.target.parentElement.parentElement.remove();
+  // }
+  // document.getElementById("patients-table").style.visibility = "hidden";
 
   // Set delete alert
   const deleteAlert = document.querySelector(".delete-alert");
