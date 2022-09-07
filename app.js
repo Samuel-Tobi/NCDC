@@ -29,8 +29,8 @@ function addPatientsData(e) {
   <tbody>
     <tr>
     <td>${
-      lastName.value.charAt(0).toUpperCase() + lastName.value.slice(1)
-    } ${firstName.value.toUpperCase()}</td>
+      lastName.value[0].toUpperCase() + lastName.value.substring(1)
+    } ${firstName.value.toUpperCase().trim()}</td>
     <td>${email.value}</td>
     <td>${gender.value}</td>
     <td>${visit.checked ? "Yes" : "No"}</td>
@@ -53,6 +53,7 @@ function addPatientsData(e) {
     const successAlert = document.querySelector(".success-alert");
     successAlert.style.display = "none";
   }
+
   //Timeout
   setTimeout(() => {
     clearSuccessAlert();
@@ -67,7 +68,9 @@ function editPatientData(data) {
     // get patient data
     patient = data.target.parentElement.parentElement;
 
-    firstName.value = patient.children[0].innerText.split(" ")[1];
+    firstName.value =
+      patient.children[0].innerText.split(" ")[1].charAt(0).toUpperCase() +
+      patient.children[0].innerText.split(" ")[1].toLowerCase().slice(1);
     lastName.value = patient.children[0].innerText.split(" ")[0];
     email.value = patient.children[1].innerText;
     gender.value = patient.children[2].innerText.split(" ");
@@ -95,8 +98,8 @@ function editPatientData(data) {
     }
     patient.innerHTML = `<tr>
       <td>${
-        lastName.value.charAt(0).toUpperCase() + lastName.value.slice(1)
-      } ${firstName.value.toUpperCase()}</td>
+        lastName.value[0].toUpperCase() + lastName.value.substring(1)
+      } ${firstName.value.toUpperCase().trim()}</td>
       <td>${email.value}</td>
       <td>${gender.value}</td>
       <td>${visit.checked ? "Yes" : "No"}</td>
@@ -134,12 +137,9 @@ const deletePatientData = (data) => {
     data.target.parentElement.parentElement.parentElement.remove();
   }
 
-  // if (data.target.className === "delete-btn" && data.target < 2) {
-  //   data.target.parentElement.parentElement.parentElement.parentElement.remove();
-  // } else {
-  //   // data.target.parentElement.parentElement.remove();
-  // }
-  // document.getElementById("patients-table").style.visibility = "hidden";
+  if (document.querySelector("tbody") == null) {
+    document.getElementById("patients-table").style.visibility = "hidden";
+  }
 
   // Set delete alert
   const deleteAlert = document.querySelector(".delete-alert");
