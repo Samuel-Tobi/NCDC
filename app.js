@@ -25,11 +25,21 @@ const setupDeleteButtons = () => {
 // Add Patient Data to Table
 function addPatientsData(e) {
   e.preventDefault();
+  if (
+    firstName.value.trim() === "" ||
+    lastName.value.trim() === "" ||
+    email.value.trim() === "" ||
+    gender.value.trim() === "" ||
+    visit.value.trim() === ""
+  ) {
+    return;
+  }
   document.getElementById("patients-table").innerHTML += `
   <tbody>
     <tr>
     <td>${
-      lastName.value[0].toUpperCase() + lastName.value.substring(1)
+      lastName.value[0].toUpperCase().split(" ").join("") +
+      lastName.value.substring(1).split(" ").join("")
     } ${firstName.value.toUpperCase().trim()}</td>
     <td>${email.value}</td>
     <td>${gender.value}</td>
